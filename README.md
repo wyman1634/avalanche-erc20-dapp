@@ -1,6 +1,6 @@
 # Avalanche ERC-20 DApp
 
-A full-stack ERC-20 application built for Task 2 of the Avalanche 101 Bootcamp. The contract is deployed with Scaffold-ETH 2 and the user interface targets Avalanche Fuji.
+A full-stack ERC-20 application built for Tasks 2 and 3 of the Avalanche 101 Bootcamp. The project includes the original ERC-20 DApp plus a Fuji deployment whose token-sale price comes from a live LFJ V1 liquidity pool.
 
 ## Token design
 
@@ -96,11 +96,36 @@ The encrypted private key is stored in `packages/hardhat/.env`, which is ignored
 
 The Fuji receipt has status `1`. Independent RPC calls confirm deployed bytecode, 18 decimals, a total supply of `1,000,000 ABT`, and the full initial supply assigned to the owner.
 
+## Task 3: LFJ-priced token sale
+
+`AvalancheBootcampTokenV2` uses the LFJ V1 Router to quote the live `WAVAX → ABTv2` path. `buyWithAvax` consumes that quote to determine how many tokens the buyer receives, applies a caller-provided minimum output, and transfers tokens from the contract's sale inventory.
+
+- DEX: [LFJ V1 on Fuji](https://developers.lfj.gg/deployment-addresses/fuji)
+- Token: [`0x9DFbC832E8036e794F33dD80612f7d12E44B39f2`](https://testnet.routescan.io/address/0x9DFbC832E8036e794F33dD80612f7d12E44B39f2?chainid=43113)
+- WAVAX: `0xd00ae08403B9bbb9124bB305C09058E32C39A48c`
+- Pair: [`0xb337Bc4A330bF4736162E668AdF2fb2179452cE7`](https://testnet.routescan.io/address/0xb337Bc4A330bF4736162E668AdF2fb2179452cE7?chainid=43113)
+- Initial liquidity: `10,000 ABTv2 / 0.05 WAVAX`
+- [Deployment transaction](https://testnet.routescan.io/tx/0x90a19fe9a191dee3b5fb88e74e99ae696530f4773da3e12390f37627134e0738?chainid=43113)
+- [Liquidity transaction](https://testnet.routescan.io/tx/0x05263c8f5318dcab265603d182a1428c70a6dd487a428dccd9442321625680c8?chainid=43113)
+- [Demo purchase transaction](https://testnet.routescan.io/tx/0x4d18d943f34a9642b38e20470ba09218ca341e22adf37d38f9c81559dc3f17f7?chainid=43113): `0.001 AVAX → 195.50169617820656117 ABTv2`
+
+Reproduce the public-chain inspection with:
+
+```bash
+yarn hardhat run scripts/inspectTask3Fuji.ts --network avalancheFuji
+```
+
+The Router spot quote is suitable for this testnet exercise, but a production protocol should not treat a shallow AMM pool as a manipulation-resistant oracle. Production designs should consider a TWAP or a robust external oracle, deviation limits, and liquidity-depth checks.
+
 ## Project structure
 
 - `packages/hardhat/contracts/AvalancheBootcampToken.sol` — token contract
 - `packages/hardhat/test/AvalancheBootcampToken.ts` — contract tests
 - `packages/hardhat/deploy/01_deploy_avalanche_bootcamp_token.ts` — deployment script
+- `packages/hardhat/contracts/AvalancheBootcampTokenV2.sol` — LFJ-priced token-sale contract
+- `packages/hardhat/test/AvalancheBootcampTokenV2.ts` — DEX quote and business-flow tests
+- `packages/hardhat/scripts/setupTask3Fuji.ts` — idempotent Fuji liquidity and demo setup
+- `packages/hardhat/scripts/inspectTask3Fuji.ts` — read-only Fuji evidence check
 - `packages/nextjs/app/erc20/page.tsx` — token interaction UI
 - `packages/nextjs/scaffold.config.ts` — Avalanche Fuji frontend configuration
 
