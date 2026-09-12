@@ -87,11 +87,14 @@ The encrypted private key is stored in `packages/hardhat/.env`, which is ignored
 
 ## Fuji deployment
 
-- Contract address: pending
-- Deployment transaction: pending
-- Explorer: pending
+- Contract address: `0x64E19587FDc01613AC823ffd71Cb5F2F7d09b0BB`
+- Deployment transaction: `0x45d684d9a1bf77e9558a25aa42c23dd7cdcc926e8df484bd5fe007579d8b1836`
+- Contract explorer: [Avalanche L1 Explorer](https://subnets-test.avax.network/c-chain/address/0x64E19587FDc01613AC823ffd71Cb5F2F7d09b0BB)
+- Transaction explorer: [Avalanche L1 Explorer](https://subnets-test.avax.network/c-chain/tx/0x45d684d9a1bf77e9558a25aa42c23dd7cdcc926e8df484bd5fe007579d8b1836)
+- Deployment block: `58,327,922`
+- Deployer and owner: `0x3cd247C0ebAb3D4702dB33250dA14D91AE79d430`
 
-These fields will be updated after the testnet deployment.
+The Fuji receipt has status `1`. Independent RPC calls confirm deployed bytecode, 18 decimals, a total supply of `1,000,000 ABT`, and the full initial supply assigned to the owner.
 
 ## Project structure
 
