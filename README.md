@@ -131,7 +131,12 @@ The contract starts with zero supply: tokens should be issued only after generat
 
 ### Fuji deployment
 
-Deployment and interaction details will be recorded here after the Fuji transactions are confirmed.
+- Contract: [`0x9b9e6d67197d8dde89d8a0f7f5542b0e7da2f5f8`](https://explorer-test.avax.network/c-chain/address/0x9b9e6d67197d8dde89d8a0f7f5542b0e7da2f5f8)
+- [Deployment transaction](https://explorer-test.avax.network/c-chain/tx/0x3044d3e41bc38072e068dddbacfe11025f3b1cfdb2dbe04aba8afe03c6b798cf)
+- [Mint 1,000 GGSC](https://explorer-test.avax.network/c-chain/tx/0xcfe4c58eb3329d1c53aa960d5a8421740e82699355b448e10114e897c4c2f01c)
+- [Transfer 200 GGSC](https://explorer-test.avax.network/c-chain/tx/0x0dc6c130d5d19cdcade1bf6ba85cf4e5dccad5dd33f3cbfbd3930ed5be974121)
+- [Burn 100 GGSC](https://explorer-test.avax.network/c-chain/tx/0x9d38b0851cc6ecb37724a396193756317610891705e7ef5603e9385303f41e2d)
+- Final supply: `900 GGSC`; owner balance: `700 GGSC`; demonstration recipient balance: `200 GGSC`
 
 Run the deterministic demonstration after deployment:
 
@@ -140,6 +145,12 @@ yarn hardhat run scripts/setupTask5Fuji.ts --network avalancheFuji
 ```
 
 The script issues `1,000 GGSC`, transfers `200 GGSC` to a demonstration recipient, burns `100 GGSC`, and prints the transaction hashes and final balances. It checks the existing state before each action so an interrupted run can be resumed safely.
+
+Verify the public deployment without a signing key:
+
+```bash
+yarn hardhat run scripts/inspectTask5Fuji.ts --network avalancheFuji
+```
 
 ## Project structure
 
@@ -154,6 +165,7 @@ The script issues `1,000 GGSC`, transfers `200 GGSC` to a demonstration recipien
 - `packages/hardhat/test/GreenGridEnergyToken.ts` — metadata, access-control, accounting, and failure-path tests
 - `packages/hardhat/deploy/03_deploy_green_grid_energy_token.ts` — Fuji deployment configuration
 - `packages/hardhat/scripts/setupTask5Fuji.ts` — resumable mint, transfer, and burn demonstration
+- `packages/hardhat/scripts/inspectTask5Fuji.ts` — read-only deployment, receipt, and state verification
 - `packages/nextjs/app/erc20/page.tsx` — token interaction UI
 - `packages/nextjs/scaffold.config.ts` — Avalanche Fuji frontend configuration
 
