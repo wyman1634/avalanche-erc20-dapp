@@ -2,6 +2,8 @@
 
 A full-stack ERC-20 application built for Tasks 2, 3, and 5 of the Avalanche 101 Bootcamp. The project includes the original ERC-20 DApp, a Fuji token sale whose price comes from a live LFJ V1 liquidity pool, and an RWA-style renewable-energy certificate token.
 
+Operational details needed to resume deployments, including the local encrypted-account recovery method and Task 5 handoff evidence, are recorded in [`PROJECT_MEMORY.md`](PROJECT_MEMORY.md). Secrets are intentionally not committed.
+
 ## Token design
 
 `AvalancheBootcampToken` uses audited OpenZeppelin Contracts components:

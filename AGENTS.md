@@ -2,6 +2,8 @@
 
 This file provides guidance to coding agents working in this repository.
 
+Before any live-network deployment or account operation, read `PROJECT_MEMORY.md` for the current public deployment evidence and the non-secret local credential recovery procedure.
+
 ## Project Overview
 
 Scaffold-ETH 2 (SE-2) is a starter kit for building dApps on Ethereum. It comes in **two flavors** based on the Solidity framework:
